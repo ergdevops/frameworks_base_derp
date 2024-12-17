@@ -41,6 +41,7 @@ public final class AttestationHooks {
 
     private static final String PACKAGE_GMS = "com.google.android.gms";
     private static final String PROCESS_UNSTABLE = "com.google.android.gms.unstable";
+    private static final String PACKAGE_GOOGLE_PHOTOS = "com.google.android.apps.photos";
     private static final String SAMSUNG = "com.samsung.android.";
     private static final String DATA_FILE = "gms_certified_props.json";
 
@@ -99,6 +100,20 @@ public final class AttestationHooks {
                 sIsGms = true;
                 setGmsCertifiedProps();
             }
+        }
+
+        // Spoof Google Photos as Pixel XL
+        if (PACKAGE_GOOGLE_PHOTOS.equals(packageName)) {
+            Log.d(TAG, "Spoofing Google Photos to Pixel XL");
+            setBuildField("BRAND", "google");
+            setBuildField("MANUFACTURER", "Google");
+            setBuildField("MODEL", "Pixel XL");
+            setBuildField("DEVICE", "marlin");
+            setBuildField("PRODUCT", "marlin");
+            setBuildField("HARDWARE", "marlin");
+            setBuildField("BOARD", "marlin");
+            setBuildField("ID", "PQ3A.190705.003");
+            setBuildField("FINGERPRINT", "google/marlin/marlin:9/PQ3A.190705.003/5670241:user/release-keys");
         }
 
         // Samsung apps like SmartThings, Galaxy Wearable crashes
